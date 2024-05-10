@@ -9,18 +9,18 @@ public class CalculateCIE1931xyCoordinates : MonoBehaviour
     
     int nDirections = 12;
     int nCircles = 6;
-    float circleExpansion=0.05f;
+    float circleExpansion=0.0025f;
 
     float radius;
 
     public List<Vector2> CreateCoordinates(Vector2 centerCoordinate)
     {
         CIE1931xyCoordinates = new List<Vector2>();
-        for(int circle=1; circle <= nCircles; circle++)
+        for(int direction = 0; direction <= nDirections; direction++) 
         {
-            for(int direction = 0; direction <= nDirections; direction++)
+            for(int circle = 1; circle <= nCircles; circle++)
             {
-                Vector2 currentCoordinate = new Vector2(Mathf.Cos((2*Mathf.PI / nDirections) * direction) * (circle * circleExpansion)+centerCoordinate[0], Mathf.Sin((2*Mathf.PI / nDirections) * direction) * (circle * circleExpansion) + centerCoordinate[0]);
+                Vector2 currentCoordinate = new Vector2(Mathf.Cos((2*Mathf.PI / nDirections) * direction) * (circle * circleExpansion)+centerCoordinate[0], Mathf.Sin((2*Mathf.PI / nDirections) * direction) * (circle * circleExpansion) + centerCoordinate[1]);
                 CIE1931xyCoordinates.Add(currentCoordinate);
             }
         }
