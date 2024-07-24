@@ -1,0 +1,15 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class data : MonoBehaviour
+{
+    public Vector3 prefabxyY;
+    public Color P3Color;
+    public float xyYDistanceToBasexyY;
+    public float P3ColorDistanceToBase;
+    public float distanceDifference;
+    public int direction;
+
+
+}

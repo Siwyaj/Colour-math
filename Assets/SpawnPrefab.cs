@@ -4,23 +4,34 @@ using UnityEngine;
 
 public class SpawnPrefab : MonoBehaviour
 {
-    public GameObject BlackBox;
+    public GameObject blackBox;
     public GameObject circlePrefab;
-    public List<Vector2> coordinates;
+    public List<Vector3> coordinates;
+    public GameObject selectedKeeper;
+    GameObject circle;
 
-    Vector2 baseColour = new Vector2(0.67f, 0.33f); //blue: (0.2f, 0.14f) Green: () Red:() P3redtest:(0.67f, 0.33f)
-
-    // Start is called before the first frame update
+    Vector3 baseColour = new Vector3(0.3f, 0.6f, 0.3f);  
     void Start()
     {
-        coordinates = new List<Vector2>();
-        GameObject circle = Instantiate(circlePrefab, new Vector2(0f,0f), Quaternion.identity);
-        circle.GetComponent<SpriteRenderer>().color = BlackBox.GetComponent<ConvertToP3>().Convert(baseColour);
-        coordinates.AddRange(BlackBox.GetComponent<CalculateCIE1931xyCoordinates>().CreateCoordinates(baseColour));
-        foreach(Vector2 coordinate in coordinates)
+
+        coordinates = new List<Vector3>();
+        coordinates.AddRange(blackBox.GetComponent<CalculatexyYCoordinates>().CreateCoordinates(baseColour));
+
+        
+        foreach (Vector3 coordinate in coordinates)
         {
-            circle = Instantiate(circlePrefab, (coordinate - baseColour)*100, Quaternion.identity);
-            circle.GetComponent<SpriteRenderer>().color = BlackBox.GetComponent<ConvertToP3>().Convert(coordinate);
+            circle = Instantiate(circlePrefab, (coordinate - baseColour)*360, Quaternion.identity);
+            Color circleColor = blackBox.GetComponent<ConvertToP3>().Convert(coordinate);
+            circle.GetComponent<SpriteRenderer>().color = circleColor;
+            selectedKeeper.GetComponent<SelectedKeeper>().selected.Add(circle);
+
+
+            data circleData = circle.GetComponent<data>();//gets the data scipt, notice type = data as this is name of data script
+            circleData.prefabxyY = coordinate; //circle data set xyY
+            circleData.P3Color = circleColor; //circle data set P3 color 
+            circleData.xyYDistanceToBasexyY = blackBox.GetComponent<CalculateDistances>().CalculatexyYDistance(coordinates[0], coordinate);
+            circleData.P3ColorDistanceToBase = blackBox.GetComponent<CalculateDistances>().CalculateP3Distance(blackBox.GetComponent<ConvertToP3>().Convert(baseColour), circleColor);
+            circleData.distanceDifference = circleData.xyYDistanceToBasexyY - circleData.P3ColorDistanceToBase;
         }
     }
 }

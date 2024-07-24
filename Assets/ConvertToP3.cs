@@ -14,10 +14,10 @@ public class ConvertToP3 : MonoBehaviour
                                    { 0.0171f, 0.0724f, 0.9108f } };
 
 
-    public Color Convert(Vector2 coordinate, float luminance = 0.3f)
+    public Color Convert(Vector3 xyY)
     {
-        Vector3 XYZ = ConvertxyYToXYZ(coordinate, luminance);
-        Vector3 sRGB = ConvertXYZTosRGB(XYZ, XYZTosRGBD65Matrix);
+        //Vector3 XYZ = ConvertxyYToXYZ(coordinate, luminance);
+        Vector3 sRGB = ConvertXYZTosRGB(xyY, XYZTosRGBD65Matrix);
         Vector3 gammaMinus = GammaCorrectionMinus(sRGB);
         Vector3 P3 = ConvertsRGBToP3(gammaMinus, sRGBToP3D65Matrix);
         Vector3 P3GammaAdded = GammaCorrectionPlus(P3);
