@@ -2,30 +2,33 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnPrefab : MonoBehaviour
+public class startStage2 : MonoBehaviour
 {
-    public GameObject blackBox;
-    public GameObject circlePrefab;
-    public List<Vector3> coordinates;
     public GameObject selectedKeeper;
-
-    public Vector3 baseColor = new Vector3(0.3f, 0.6f, 0.3f);  
-    void Start()
+    public GameObject blackBox;
+    public Vector3 baseColor = new Vector3(0.3f, 0.6f, 0.3f);
+    public GameObject circlePrefab;
+    public void StartStage2()
     {
+        //!!!!LOG SELECTED AND UNSELECTED
 
-        coordinates = new List<Vector3>();
-        coordinates.AddRange(blackBox.GetComponent<CalculatexyYCoordinates>().CreateCoordinates(baseColor));
 
-        
-        foreach (Vector3 coordinate in coordinates)
+        List<Vector3> stage2Coordinates = blackBox.GetComponent<CalculateStage2coordinates>().Stage2Coordinates(selectedKeeper.GetComponent<SelectedKeeper>().selected, selectedKeeper.GetComponent<SelectedKeeper>().unselected, baseColor);
+        foreach(GameObject leftover in selectedKeeper.GetComponent<SelectedKeeper>().unselected)
         {
-            GameObject circle = Instantiate(circlePrefab, (coordinate - baseColor)*360, Quaternion.identity);//Instantiate the circle prefab, i do this at the coordinates of the circle for the test do this according to your game
-            Color circleColor = blackBox.GetComponent<ConvertToP3>().Convert(coordinate); //Get the color based on the coordinates
-            circle.GetComponent<SpriteRenderer>().color = circleColor;//set the sprite renderer to the color 
-            selectedKeeper.GetComponent<SelectedKeeper>().unselected.Add(circle);//add the circle(GameObject) to the unselected list in the selectkeeper, do this as you please as long as it ends with two list of gameobjects
+            Destroy(leftover);
+        }
+        foreach(GameObject selected in selectedKeeper.GetComponent<SelectedKeeper>().selected)
+        {
+            Destroy(selected);
+        }
+        foreach(Vector3 coordinate in stage2Coordinates)
+        {
+            GameObject circle = Instantiate(circlePrefab, (coordinate - baseColor)*360, Quaternion.identity);
+            Color circleColor = blackBox.GetComponent<ConvertToP3>().Convert(coordinate); 
+            circle.GetComponent<SpriteRenderer>().color = circleColor; 
+            selectedKeeper.GetComponent<SelectedKeeper>().unselected.Add(circle);
 
-            //The circle prefab has a data script on it, which I use to keep the information which needs to be logged
-            //Set the initial know values
             data circleData = circle.GetComponent<data>();//gets the data scipt, notice type = data as this is name of data script
             circleData.xyYCoordinate = coordinate; //circle data set xyY
             circleData.P3Color = circleColor; //circle data set P3 color 
@@ -47,5 +50,6 @@ public class SpawnPrefab : MonoBehaviour
             //This was just used to see the that there was a difference between the two as some values were suspiciously close
             circleData.distanceDifference = circleData.xyYDistanceToBasexyY - circleData.P3ColorDistanceToBase;
         }
+
     }
 }

@@ -15,6 +15,6 @@ public class CalculateDistances : MonoBehaviour
         Vector3 baseP3Vector = new Vector3(baseP3[0], baseP3[1], baseP3[2]);
         Vector3 P3Vector = new Vector3(P3[0], P3[1], P3[2]);
         return Vector3.Distance(baseP3Vector, P3Vector);
-    }   
+    }
 
 }

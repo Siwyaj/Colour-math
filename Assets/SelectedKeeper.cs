@@ -6,5 +6,4 @@ public class SelectedKeeper : MonoBehaviour
 {
     public List<GameObject> selected = new List<GameObject>();
     public List<GameObject> unselected = new List<GameObject>();
-
 }

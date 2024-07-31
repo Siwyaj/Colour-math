@@ -10,8 +10,8 @@ public class CalculatexyYCoordinates : MonoBehaviour
     int nDirections = 8;
     int nCircles = 6;
     float startExpansion = 0.0005f;
-
-    public List<Vector3> CreateCoordinates(Vector3 centerCoordinate, float circleExpansion = 0.0013f)
+    float circleExpansion = 0.0013f;
+    public List<Vector3> CreateCoordinates(Vector3 centerCoordinate)
     {
         xyYCoordinates = new List<Vector3>();
         directions = new List<int>();
@@ -28,6 +28,7 @@ public class CalculatexyYCoordinates : MonoBehaviour
                 directions.Add(direction);
             }
         }
+        xyYCoordinates.AddRange(xyYCoordinates);
         return xyYCoordinates;
     }
 }

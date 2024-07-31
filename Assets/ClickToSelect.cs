@@ -13,6 +13,6 @@ public class ClickToSelect : MonoBehaviour
     {
         SelectedKeeper.GetComponent<SelectedKeeper>().unselected.Remove(gameObject);
         SelectedKeeper.GetComponent<SelectedKeeper>().selected.Add(gameObject);
-        Destroy(gameObject);
+        gameObject.SetActive(false);
     }
 }

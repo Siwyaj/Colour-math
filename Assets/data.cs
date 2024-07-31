@@ -4,12 +4,11 @@ using UnityEngine;
 
 public class data : MonoBehaviour
 {
-    public Vector3 prefabxyY;
+    public Vector3 xyYCoordinate;
     public Color P3Color;
     public float xyYDistanceToBasexyY;
     public float P3ColorDistanceToBase;
     public float distanceDifference;
     public int direction;
-
 
 }
