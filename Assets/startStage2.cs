@@ -24,7 +24,7 @@ public class startStage2 : MonoBehaviour
         }
         foreach(Vector3 coordinate in stage2Coordinates)
         {
-            GameObject circle = Instantiate(circlePrefab, (coordinate - baseColor)*360, Quaternion.identity);
+            GameObject circle = Instantiate(circlePrefab, (coordinate - baseColor)*500, Quaternion.identity);
             Color circleColor = blackBox.GetComponent<ConvertToP3>().Convert(coordinate); 
             circle.GetComponent<SpriteRenderer>().color = circleColor; 
             selectedKeeper.GetComponent<SelectedKeeper>().unselected.Add(circle);

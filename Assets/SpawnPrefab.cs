@@ -9,7 +9,7 @@ public class SpawnPrefab : MonoBehaviour
     public List<Vector3> coordinates;
     public GameObject selectedKeeper;
 
-    public Vector3 baseColor = new Vector3(0.3f, 0.6f, 0.3f);  
+    public Vector3 baseColor = new Vector3(0.2296f, 0.2897f, 0.2815f);  
     void Start()
     {
 
@@ -19,7 +19,7 @@ public class SpawnPrefab : MonoBehaviour
         
         foreach (Vector3 coordinate in coordinates)
         {
-            GameObject circle = Instantiate(circlePrefab, (coordinate - baseColor)*360, Quaternion.identity);//Instantiate the circle prefab, i do this at the coordinates of the circle for the test do this according to your game
+            GameObject circle = Instantiate(circlePrefab, (coordinate - baseColor)*500, Quaternion.identity);//Instantiate the circle prefab, i do this at the coordinates of the circle for the test do this according to your game
             Color circleColor = blackBox.GetComponent<ConvertToP3>().Convert(coordinate); //Get the color based on the coordinates
             circle.GetComponent<SpriteRenderer>().color = circleColor;//set the sprite renderer to the color 
             selectedKeeper.GetComponent<SelectedKeeper>().unselected.Add(circle);//add the circle(GameObject) to the unselected list in the selectkeeper, do this as you please as long as it ends with two list of gameobjects

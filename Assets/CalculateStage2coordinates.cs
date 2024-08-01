@@ -127,7 +127,20 @@ public class CalculateStage2coordinates : MonoBehaviour
         //Get furstest unselected pair
         for(int i=0 ; i < ordered.Count; i += 2)
         {
-            
+            if(ordered[i].Item2 || ordered[i + 1].Item2)
+            {
+                if (startCoordinate == nullVector)
+                {
+                    startCoordinate = ordered[i].Item1;
+                    Debug.Log(startCoordinate * 100);
+                }
+            }
+            if(!ordered[i].Item2 || !ordered[i + 1].Item2)
+            {
+                endCoordinate = ordered[i].Item1;
+            }
+
+            /*
             if ((!ordered[i].Item2 && ordered[i + 1].Item2) || (ordered[i].Item2 && !ordered[i + 1].Item2))
             {
                 if (startCoordinate == nullVector)
@@ -137,7 +150,9 @@ public class CalculateStage2coordinates : MonoBehaviour
                 }
                 endCoordinate = ordered[i].Item1;
             }
+            */
         }
+        /*
         Debug.Log("Start");
         Debug.Log(startCoordinate * 100);
         Debug.Log("end");
@@ -152,16 +167,28 @@ public class CalculateStage2coordinates : MonoBehaviour
         Debug.Log(stepsf);
         Debug.Log("steps");
         Debug.Log(steps);
+        */
         
+
         Vector3 unitVector = Vector3.Normalize((startCoordinate - basexyY));
         Vector3 stepVector = unitVector * (circleExpansion / 2);//im stuck
-        
+        //
+        Vector3 point1 = startCoordinate + (stepVector*-1);
+        Vector3 point4 = endCoordinate + stepVector;
+        Vector3 point2 = Vector3.Lerp(point1, point4, (1f / 3f));
+        Vector3 point3 = Vector3.Lerp(point1, point4, (2f / 3f));
+        //
+        /*
         for (int step = -1; step <= steps + 1; step++)
         {
 
             returnCoordinates.Add(startCoordinate + stepVector * step);
         }
-        
+        */
+        returnCoordinates.Add(point1);
+        returnCoordinates.Add(point2);
+        returnCoordinates.Add(point3);
+        returnCoordinates.Add(point4);
 
         return returnCoordinates;
     }
