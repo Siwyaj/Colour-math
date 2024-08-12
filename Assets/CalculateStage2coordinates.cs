@@ -5,9 +5,9 @@ using UnityEngine;
 
 public class CalculateStage2coordinates : MonoBehaviour
 {
-    public List<Vector3> stage2Coordinates; 
+    List<Vector3> stage2Coordinates = new List<Vector3>(); 
 
-    public List<(Vector3, bool)> direction0 = new List<(Vector3, bool)>();//TRUE=Selected/different, False=not-selected/same
+    List<(Vector3, bool)> direction0 = new List<(Vector3, bool)>();//TRUE=Selected/different, False=not-selected/same
     List<(Vector3, bool)> direction1 = new List<(Vector3, bool)>();//TRUE=Selected/different, False=not-selected/same
     List<(Vector3, bool)> direction2 = new List<(Vector3, bool)>();//TRUE=Selected/different, False=not-selected/same
     List<(Vector3, bool)> direction3 = new List<(Vector3, bool)>();//TRUE=Selected/different, False=not-selected/same
@@ -18,14 +18,14 @@ public class CalculateStage2coordinates : MonoBehaviour
 
     float circleExpansion = 0.0013f;
 
-    public List<Vector3> test;
-    public List<Vector3> Stage2Coordinates(List<GameObject> selected, List<GameObject> unSelected, Vector3 baseColor)//change to whatever is provided
+    
+    public List<Vector3> Stage2Coordinates(List<Vector3> selected, List<Vector3> unSelected, Vector3 baseColor)//change to whatever is provided
     {
-
+        
         //convert to what makes sense
-        foreach (GameObject selectedCircle in selected)
+        foreach (Vector3 currentCoordinate in selected)
         {
-            Vector3 currentCoordinate = selectedCircle.GetComponent<data>().xyYCoordinate;
+            //Vector3 currentCoordinate = selectedCircle.GetComponent<data>().xyYCoordinate;
             if (currentCoordinate != baseColor)
             {
                 float angle = Mathf.Atan2(baseColor[1] - currentCoordinate[1], baseColor[0] - currentCoordinate[0]);
@@ -62,9 +62,9 @@ public class CalculateStage2coordinates : MonoBehaviour
             
             }
         }
-        foreach (GameObject unSelectedCircle in unSelected)
+        foreach (Vector3 currentCoordinate in unSelected)
         {
-            Vector3 currentCoordinate = unSelectedCircle.GetComponent<data>().xyYCoordinate;
+            //Vector3 currentCoordinate = unSelectedCircle.GetComponent<data>().xyYCoordinate;
             if (currentCoordinate != baseColor)
             {
                 float angle = Mathf.Atan2(baseColor[1] - currentCoordinate[1], baseColor[0] - currentCoordinate[0]);
@@ -100,6 +100,10 @@ public class CalculateStage2coordinates : MonoBehaviour
             }
         }
 
+
+        Debug.Log("before calculations");
+        Debug.Log(direction0);
+       
         stage2Coordinates.AddRange(calculateStage2CoordinatesForDirection(direction0, baseColor));
         stage2Coordinates.AddRange(calculateStage2CoordinatesForDirection(direction1, baseColor));
         stage2Coordinates.AddRange(calculateStage2CoordinatesForDirection(direction2, baseColor));
@@ -110,12 +114,12 @@ public class CalculateStage2coordinates : MonoBehaviour
         stage2Coordinates.AddRange(calculateStage2CoordinatesForDirection(direction7, baseColor));
         
 
-
         return stage2Coordinates;
     }
 
     List<Vector3> calculateStage2CoordinatesForDirection(List<(Vector3, bool)> direction, Vector3 basexyY)
     {
+        Debug.Log("cs2cfd ran");
         Vector3 nullVector = new Vector3();
         Vector3 startCoordinate = new Vector3();
         Vector3 endCoordinate = new Vector3();
@@ -125,7 +129,9 @@ public class CalculateStage2coordinates : MonoBehaviour
         List<(Vector3, bool)> ordered = direction.OrderBy(item => Vector3.Distance(item.Item1, basexyY)).ToList();
 
         //Get furstest unselected pair
-        for(int i=0 ; i < ordered.Count; i += 2)
+
+        Debug.Log("for loop start");
+        for (int i=0 ; i < ordered.Count; i += 2)
         {
             if(ordered[i].Item2 || ordered[i + 1].Item2)
             {
@@ -152,12 +158,27 @@ public class CalculateStage2coordinates : MonoBehaviour
             }
             */
         }
-        /*
+
+        Debug.Log("for loop end");
         Debug.Log("Start");
         Debug.Log(startCoordinate * 100);
         Debug.Log("end");
         Debug.Log(endCoordinate * 100);
+        if (startCoordinate == nullVector)//case 2 on paper
+        {
+            Debug.Log("startCoordinate is nullvector");
+            return returnCoordinates;
+            
+        }
+        if (endCoordinate == nullVector)//case 3 on paper
+        {
+            Debug.Log("endCoordinate is nullvector");
+            return returnCoordinates;
 
+        }
+
+
+        /*
         float distance = Vector3.Distance(endCoordinate, startCoordinate);
 
         float halfExpansion = circleExpansion / 2;
@@ -168,13 +189,20 @@ public class CalculateStage2coordinates : MonoBehaviour
         Debug.Log("steps");
         Debug.Log(steps);
         */
-        
 
+        Debug.Log("vector calc start");
         Vector3 unitVector = Vector3.Normalize((startCoordinate - basexyY));
         Vector3 stepVector = unitVector * (circleExpansion / 2);//im stuck
         //
         Vector3 point1 = startCoordinate + (stepVector*-1);
         Vector3 point4 = endCoordinate + stepVector;
+
+        Debug.Log("vector calc end");
+        if (point1== point4)//case 1 on paper
+        {
+            Debug.Log("perfect result");
+            return returnCoordinates;
+        }
         Vector3 point2 = Vector3.Lerp(point1, point4, (1f / 3f));
         Vector3 point3 = Vector3.Lerp(point1, point4, (2f / 3f));
         //

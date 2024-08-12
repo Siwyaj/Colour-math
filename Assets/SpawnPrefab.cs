@@ -13,8 +13,8 @@ public class SpawnPrefab : MonoBehaviour
     void Start()
     {
 
-        coordinates = new List<Vector3>();
-        coordinates.AddRange(blackBox.GetComponent<CalculatexyYCoordinates>().CreateCoordinates(baseColor));
+        coordinates = blackBox.GetComponent<CalculatexyYCoordinates>().CreateCoordinates(baseColor);
+        //coordinates.AddRange();
 
         
         foreach (Vector3 coordinate in coordinates)
@@ -22,8 +22,8 @@ public class SpawnPrefab : MonoBehaviour
             GameObject circle = Instantiate(circlePrefab, (coordinate - baseColor)*500, Quaternion.identity);//Instantiate the circle prefab, i do this at the coordinates of the circle for the test do this according to your game
             Color circleColor = blackBox.GetComponent<ConvertToP3>().Convert(coordinate); //Get the color based on the coordinates
             circle.GetComponent<SpriteRenderer>().color = circleColor;//set the sprite renderer to the color 
-            selectedKeeper.GetComponent<SelectedKeeper>().unselected.Add(circle);//add the circle(GameObject) to the unselected list in the selectkeeper, do this as you please as long as it ends with two list of gameobjects
-
+            selectedKeeper.GetComponent<SelectedKeeper>().unselected.Add(coordinate);//add the circle(GameObject) to the unselected list in the selectkeeper, do this as you please as long as it ends with two list of gameobjects
+            selectedKeeper.GetComponent<SelectedKeeper>().unselectedGameobjects.Add(circle);
             //The circle prefab has a data script on it, which I use to keep the information which needs to be logged
             //Set the initial know values
             data circleData = circle.GetComponent<data>();//gets the data scipt, notice type = data as this is name of data script

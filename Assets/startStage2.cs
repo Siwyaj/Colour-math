@@ -8,17 +8,19 @@ public class startStage2 : MonoBehaviour
     public GameObject blackBox;
     public Vector3 baseColor = new Vector3(0.3f, 0.6f, 0.3f);
     public GameObject circlePrefab;
+    public List<Vector3> stage2Coordinates;
     public void StartStage2()
     {
         //!!!!LOG SELECTED AND UNSELECTED
 
 
-        List<Vector3> stage2Coordinates = blackBox.GetComponent<CalculateStage2coordinates>().Stage2Coordinates(selectedKeeper.GetComponent<SelectedKeeper>().selected, selectedKeeper.GetComponent<SelectedKeeper>().unselected, baseColor);
-        foreach(GameObject leftover in selectedKeeper.GetComponent<SelectedKeeper>().unselected)
+        stage2Coordinates = blackBox.GetComponent<CalculateStage2coordinates>().Stage2Coordinates(selectedKeeper.GetComponent<SelectedKeeper>().selected, selectedKeeper.GetComponent<SelectedKeeper>().unselected, baseColor);
+        
+        foreach(GameObject leftover in selectedKeeper.GetComponent<SelectedKeeper>().unselectedGameobjects)
         {
             Destroy(leftover);
         }
-        foreach(GameObject selected in selectedKeeper.GetComponent<SelectedKeeper>().selected)
+        foreach(GameObject selected in selectedKeeper.GetComponent<SelectedKeeper>().selectedGameobjects)
         {
             Destroy(selected);
         }
@@ -27,7 +29,7 @@ public class startStage2 : MonoBehaviour
             GameObject circle = Instantiate(circlePrefab, (coordinate - baseColor)*500, Quaternion.identity);
             Color circleColor = blackBox.GetComponent<ConvertToP3>().Convert(coordinate); 
             circle.GetComponent<SpriteRenderer>().color = circleColor; 
-            selectedKeeper.GetComponent<SelectedKeeper>().unselected.Add(circle);
+            selectedKeeper.GetComponent<SelectedKeeper>().unselected.Add(circle.GetComponent<data>().xyYCoordinate);
 
             data circleData = circle.GetComponent<data>();//gets the data scipt, notice type = data as this is name of data script
             circleData.xyYCoordinate = coordinate; //circle data set xyY
