@@ -49,8 +49,6 @@ public class startStage2 : MonoBehaviour
             //The result is saved in the data script
             circleData.P3ColorDistanceToBase = blackBox.GetComponent<CalculateDistances>().CalculateP3Distance(blackBox.GetComponent<ConvertToP3>().Convert(baseColor), circleColor);
 
-            //This was just used to see the that there was a difference between the two as some values were suspiciously close
-            circleData.distanceDifference = circleData.xyYDistanceToBasexyY - circleData.P3ColorDistanceToBase;
         }
 
     }

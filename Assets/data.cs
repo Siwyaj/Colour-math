@@ -8,7 +8,5 @@ public class data : MonoBehaviour
     public Color P3Color;
     public float xyYDistanceToBasexyY;
     public float P3ColorDistanceToBase;
-    public float distanceDifference;
-    public int direction;
 
 }

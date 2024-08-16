@@ -105,6 +105,7 @@ public class CalculateStage2coordinates : MonoBehaviour
         Debug.Log(direction0);
        
         stage2Coordinates.AddRange(calculateStage2CoordinatesForDirection(direction0, baseColor));
+        /*
         stage2Coordinates.AddRange(calculateStage2CoordinatesForDirection(direction1, baseColor));
         stage2Coordinates.AddRange(calculateStage2CoordinatesForDirection(direction2, baseColor));
         stage2Coordinates.AddRange(calculateStage2CoordinatesForDirection(direction3, baseColor));
@@ -112,14 +113,14 @@ public class CalculateStage2coordinates : MonoBehaviour
         stage2Coordinates.AddRange(calculateStage2CoordinatesForDirection(direction5, baseColor));
         stage2Coordinates.AddRange(calculateStage2CoordinatesForDirection(direction6, baseColor));
         stage2Coordinates.AddRange(calculateStage2CoordinatesForDirection(direction7, baseColor));
-        
+        */
 
         return stage2Coordinates;
     }
 
     List<Vector3> calculateStage2CoordinatesForDirection(List<(Vector3, bool)> direction, Vector3 basexyY)
     {
-        Debug.Log("cs2cfd ran");
+
         Vector3 nullVector = new Vector3();
         Vector3 startCoordinate = new Vector3();
         Vector3 endCoordinate = new Vector3();
@@ -130,7 +131,7 @@ public class CalculateStage2coordinates : MonoBehaviour
 
         //Get furstest unselected pair
 
-        Debug.Log("for loop start");
+
         for (int i=0 ; i < ordered.Count; i += 2)
         {
             if(ordered[i].Item2 || ordered[i + 1].Item2)
@@ -159,20 +160,28 @@ public class CalculateStage2coordinates : MonoBehaviour
             */
         }
 
-        Debug.Log("for loop end");
-        Debug.Log("Start");
-        Debug.Log(startCoordinate * 100);
-        Debug.Log("end");
-        Debug.Log(endCoordinate * 100);
+        
         if (startCoordinate == nullVector)//case 2 on paper
         {
-            Debug.Log("startCoordinate is nullvector");
+            Debug.Log("startCoordinate is nullvector ie no colors were differenciated");
+            startCoordinate = ordered[0].Item1;
+            endCoordinate = ordered[ordered.Count-1].Item1;
+            returnCoordinates.Add(startCoordinate);
+            returnCoordinates.Add(Vector3.Lerp(startCoordinate, endCoordinate, (1f / 3f)));
+            returnCoordinates.Add(Vector3.Lerp(startCoordinate, endCoordinate, (2f / 3f)));
+            returnCoordinates.Add(endCoordinate);
             return returnCoordinates;
             
         }
         if (endCoordinate == nullVector)//case 3 on paper
         {
-            Debug.Log("endCoordinate is nullvector");
+            Debug.Log("endCoordinate is nullvector ie all colors were differentiated");
+            startCoordinate = ordered[0].Item1;
+            endCoordinate = ordered[ordered.Count - 1].Item1;
+            returnCoordinates.Add(startCoordinate);
+            returnCoordinates.Add(Vector3.Lerp(startCoordinate,endCoordinate, (1f / 3f)));
+            returnCoordinates.Add(Vector3.Lerp(startCoordinate, endCoordinate, (2f / 3f)));
+            returnCoordinates.Add(endCoordinate);
             return returnCoordinates;
 
         }
@@ -190,17 +199,20 @@ public class CalculateStage2coordinates : MonoBehaviour
         Debug.Log(steps);
         */
 
-        Debug.Log("vector calc start");
         Vector3 unitVector = Vector3.Normalize((startCoordinate - basexyY));
         Vector3 stepVector = unitVector * (circleExpansion / 2);//im stuck
         //
         Vector3 point1 = startCoordinate + (stepVector*-1);
         Vector3 point4 = endCoordinate + stepVector;
 
-        Debug.Log("vector calc end");
-        if (point1== point4)//case 1 on paper
+        if (point1== point4)//case 1 on paper ie the point i each dicrection is the same.
         {
             Debug.Log("perfect result");
+            returnCoordinates.Add(startCoordinate);
+            returnCoordinates.Add(Vector3.Lerp(startCoordinate,endCoordinate, (1f / 3f)));
+            returnCoordinates.Add(Vector3.Lerp(startCoordinate, endCoordinate, (2f / 3f)));
+            returnCoordinates.Add(endCoordinate);
+
             return returnCoordinates;
         }
         Vector3 point2 = Vector3.Lerp(point1, point4, (1f / 3f));
