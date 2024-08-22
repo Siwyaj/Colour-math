@@ -332,8 +332,8 @@ Canvas:
   m_GameObject: {fileID: 855128537}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 519420031}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -401,10 +401,10 @@ RectTransform:
   - {fileID: 1726075623}
   m_Father: {fileID: 855128541}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -683, y: -417}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 132, y: 88}
+  m_SizeDelta: {x: 177.35, y: 87.82}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1695632524
 MonoBehaviour:
@@ -422,6 +422,7 @@ MonoBehaviour:
   blackBox: {fileID: 1932938138}
   baseColor: {x: 0.3, y: 0.6, z: 0.3}
   circlePrefab: {fileID: 1356611976883415514, guid: 513077d26898a0c4295dd205c727fa6a, type: 3}
+  stage2Coordinates: []
 --- !u!114 &1695632525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -468,7 +469,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1695632524}
         m_TargetAssemblyTypeName: startStage2, Assembly-CSharp
-        m_MethodName: StartStage2
+        m_MethodName: Button
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -679,6 +680,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3beda93c53617b42a9f8996dd998691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  selectedGameobjects: []
+  unselectedGameobjects: []
   selected: []
   unselected: []
 --- !u!4 &1808492287
@@ -701,6 +704,18 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3662165271418717217, guid: 99fa7b2a03435ff4c86ac7233287a923, type: 3}
   m_PrefabInstance: {fileID: 2025897188}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1932938139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1932938138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d466f0eb8c7e4948af7b81dd0c72e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2025897188
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -756,7 +771,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3662165271418717217, guid: 99fa7b2a03435ff4c86ac7233287a923, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1932938139}
   m_SourcePrefab: {fileID: 100100000, guid: 99fa7b2a03435ff4c86ac7233287a923, type: 3}
 --- !u!1 &2055101159
 GameObject:

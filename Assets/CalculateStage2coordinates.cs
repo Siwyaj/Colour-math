@@ -21,8 +21,11 @@ public class CalculateStage2coordinates : MonoBehaviour
     
     public List<Vector3> Stage2Coordinates(List<Vector3> selected, List<Vector3> unSelected, Vector3 baseColor)//change to whatever is provided
     {
-        
-        //convert to what makes sense
+        Debug.Log("Amount of colors selected in stage 1: " + selected.Count);
+        Debug.Log("Amount of colors NOT selected in stage 1: " + unSelected.Count);
+        Debug.Log("Colors slected and unselected: " + unSelected.Count+", should euqual 98");
+
+
         foreach (Vector3 currentCoordinate in selected)
         {
             //Vector3 currentCoordinate = selectedCircle.GetComponent<data>().xyYCoordinate;
@@ -105,7 +108,6 @@ public class CalculateStage2coordinates : MonoBehaviour
         Debug.Log(direction0);
        
         stage2Coordinates.AddRange(calculateStage2CoordinatesForDirection(direction0, baseColor));
-        /*
         stage2Coordinates.AddRange(calculateStage2CoordinatesForDirection(direction1, baseColor));
         stage2Coordinates.AddRange(calculateStage2CoordinatesForDirection(direction2, baseColor));
         stage2Coordinates.AddRange(calculateStage2CoordinatesForDirection(direction3, baseColor));
@@ -113,7 +115,7 @@ public class CalculateStage2coordinates : MonoBehaviour
         stage2Coordinates.AddRange(calculateStage2CoordinatesForDirection(direction5, baseColor));
         stage2Coordinates.AddRange(calculateStage2CoordinatesForDirection(direction6, baseColor));
         stage2Coordinates.AddRange(calculateStage2CoordinatesForDirection(direction7, baseColor));
-        */
+        
 
         return stage2Coordinates;
     }
@@ -129,8 +131,7 @@ public class CalculateStage2coordinates : MonoBehaviour
         // Sort the list based on the distance between each Vector3 and basexyY
         List<(Vector3, bool)> ordered = direction.OrderBy(item => Vector3.Distance(item.Item1, basexyY)).ToList();
 
-        //Get furstest unselected pair
-
+        
 
         for (int i=0 ; i < ordered.Count; i += 2)
         {

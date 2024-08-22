@@ -9,7 +9,25 @@ public class startStage2 : MonoBehaviour
     public Vector3 baseColor = new Vector3(0.3f, 0.6f, 0.3f);
     public GameObject circlePrefab;
     public List<Vector3> stage2Coordinates;
-    public void StartStage2()
+    int stage = 1;
+
+    private void Start()
+    {
+        stage = 1;
+    }
+
+    public void Button()
+    {
+        if (stage == 1)
+        {
+            StartStage2();
+        }
+        if(stage == 2)
+        {
+            StartStage3();
+        }
+    }
+    void StartStage2()
     {
         //!!!!LOG SELECTED AND UNSELECTED
 
@@ -50,6 +68,10 @@ public class startStage2 : MonoBehaviour
             circleData.P3ColorDistanceToBase = blackBox.GetComponent<CalculateDistances>().CalculateP3Distance(blackBox.GetComponent<ConvertToP3>().Convert(baseColor), circleColor);
 
         }
+
+    }
+    void StartStage3()
+    {
 
     }
 }
