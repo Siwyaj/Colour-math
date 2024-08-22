@@ -16,9 +16,11 @@ public class CalculateEndResult : MonoBehaviour
     List<(Vector3, bool)> direction6 = new List<(Vector3, bool)>();//TRUE=Selected/different, False=not-selected/same
     List<(Vector3, bool)> direction7 = new List<(Vector3, bool)>();//TRUE=Selected/different, False=not-selected/same
 
-    public List<Vector3> CalculateEndPoints(List<Vector3> selectedStage2,List<Vector3> notSelectedStage3, Vector3 basePoint)
+    public List<Vector3> CalculateEndPoints(List<Vector3> selectedStage2,List<Vector3> notSelectedStage2, Vector3 basePoint)
     {
-
+        Debug.Log("selectedStage2 length" + selectedStage2.Count);
+        Debug.Log(notSelectedStage2[0]);
+        Debug.Log("notSelectedStage2 length" + notSelectedStage2.Count);
 
 
         foreach (Vector3 currentCoordinate in selectedStage2)
@@ -60,7 +62,7 @@ public class CalculateEndResult : MonoBehaviour
 
             }
         }
-        foreach (Vector3 currentCoordinate in notSelectedStage3)
+        foreach (Vector3 currentCoordinate in notSelectedStage2)
         {
             //Vector3 currentCoordinate = unSelectedCircle.GetComponent<data>().xyYCoordinate;
             if (currentCoordinate != basePoint)
@@ -93,22 +95,27 @@ public class CalculateEndResult : MonoBehaviour
                         direction7.Add((currentCoordinate, false));
                         break;
                     default:
+                        Debug.Log("Did not fit in any direction");
                         break;
                 }
             }
         }
 
+        Debug.Log(direction0.Count);
+        Debug.Log("Placement of direction 0.1:" + direction0[0]);
+        Debug.Log("Placement of direction 0.2:" + direction0[1]);
+        Debug.Log("Placement of direction 0.3:" + direction0[2]);
+        Debug.Log("Placement of direction 0.4:" + direction0[3]);
 
-
-        finalMedianCoordinates.Add(calculateFinalPointForDirection(direction0, basePoint));
+        finalMedianCoordinates.Add(calculateFinalPointForDirection(direction0, basePoint));/*
         finalMedianCoordinates.Add(calculateFinalPointForDirection(direction1, basePoint));
         finalMedianCoordinates.Add(calculateFinalPointForDirection(direction2, basePoint));
         finalMedianCoordinates.Add(calculateFinalPointForDirection(direction3, basePoint));
         finalMedianCoordinates.Add(calculateFinalPointForDirection(direction4, basePoint));
         finalMedianCoordinates.Add(calculateFinalPointForDirection(direction5, basePoint));
         finalMedianCoordinates.Add(calculateFinalPointForDirection(direction6, basePoint));
-        finalMedianCoordinates.Add(calculateFinalPointForDirection(direction7, basePoint)); 
-
+        finalMedianCoordinates.Add(calculateFinalPointForDirection(direction7, basePoint)); */
+        Debug.Log("length of finalMedianCoordinates:" + finalMedianCoordinates.Count);
 
         return finalMedianCoordinates;
     }
@@ -126,7 +133,7 @@ public class CalculateEndResult : MonoBehaviour
         {
             if (ordered[i].Item2)
             {
-                if (startpoint == new Vector3())//first selected point
+                if (startpoint == new Vector3())
                 {
                     startpoint = ordered[i].Item1;
                 }
@@ -137,9 +144,19 @@ public class CalculateEndResult : MonoBehaviour
             }
 
         }
-
+        Debug.Log("startpoint: " + startpoint);
+        Debug.Log("endPoint: " + endPoint);
         medianPoint = Vector3.Lerp(startpoint, endPoint, 0.5f);
-       
+        Debug.Log("medianPoint: " + medianPoint);
+        if (startpoint == new Vector3())
+        {
+            return ordered[ordered.Count - 1].Item1;
+        }
+        if(endPoint == new Vector3())
+        {
+            return ordered[0].Item1;
+        }
+
 
         return medianPoint;
     }

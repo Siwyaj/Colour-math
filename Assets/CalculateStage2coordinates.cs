@@ -164,7 +164,6 @@ public class CalculateStage2coordinates : MonoBehaviour
         
         if (startCoordinate == nullVector)//case 2 on paper
         {
-            Debug.Log("startCoordinate is nullvector ie no colors were differenciated");
             startCoordinate = ordered[0].Item1;
             endCoordinate = ordered[ordered.Count-1].Item1;
             returnCoordinates.Add(startCoordinate);
@@ -176,7 +175,6 @@ public class CalculateStage2coordinates : MonoBehaviour
         }
         if (endCoordinate == nullVector)//case 3 on paper
         {
-            Debug.Log("endCoordinate is nullvector ie all colors were differentiated");
             startCoordinate = ordered[0].Item1;
             endCoordinate = ordered[ordered.Count - 1].Item1;
             returnCoordinates.Add(startCoordinate);
@@ -208,7 +206,6 @@ public class CalculateStage2coordinates : MonoBehaviour
 
         if (point1== point4)//case 1 on paper ie the point i each dicrection is the same.
         {
-            Debug.Log("perfect result");
             returnCoordinates.Add(startCoordinate);
             returnCoordinates.Add(Vector3.Lerp(startCoordinate,endCoordinate, (1f / 3f)));
             returnCoordinates.Add(Vector3.Lerp(startCoordinate, endCoordinate, (2f / 3f)));

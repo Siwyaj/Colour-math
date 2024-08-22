@@ -4,16 +4,29 @@ using UnityEngine;
 
 public class ClickToSelect : MonoBehaviour
 {
-    public GameObject SelectedKeeper;
+    public SelectedKeeper SelectedKeeper;
     private void Start()
     {
-        SelectedKeeper = GameObject.FindWithTag("keeper");
+        SelectedKeeper = GameObject.FindWithTag("keeper").GetComponent<SelectedKeeper>();
     }
     void OnMouseDown()
     {
-        SelectedKeeper.GetComponent<SelectedKeeper>().unselected.Remove(gameObject.GetComponent<data>().xyYCoordinate);
-        SelectedKeeper.GetComponent<SelectedKeeper>().unselectedGameobjects.Remove(gameObject);
-        SelectedKeeper.GetComponent<SelectedKeeper>().selected.Add(gameObject.GetComponent<data>().xyYCoordinate);
-        gameObject.SetActive(false);
+        if (SelectedKeeper.stage==1)
+        {
+            SelectedKeeper.unselected.Remove(gameObject.GetComponent<data>().xyYCoordinate);
+            SelectedKeeper.unselectedGameobjects.Remove(gameObject);
+            SelectedKeeper.selected.Add(gameObject.GetComponent<data>().xyYCoordinate);
+            gameObject.SetActive(false);
+        }
+        else if (SelectedKeeper.stage == 2)
+        {
+            SelectedKeeper.unselected.Remove(gameObject.GetComponent<data>().xyYCoordinate);
+            SelectedKeeper.unselectedGameobjects.Remove(gameObject);
+            SelectedKeeper.stage2Selected.Add(gameObject.GetComponent<data>().xyYCoordinate);
+            gameObject.SetActive(false);
+        }
+
+
+        
     }
 }
