@@ -13,6 +13,8 @@ GameObject:
   - component: {fileID: -5405055290476362336}
   - component: {fileID: 5934462334349142021}
   - component: {fileID: 8868689911825929759}
+  - component: {fileID: 6725552963898293645}
+  - component: {fileID: 167648815967291022}
   m_Layer: 0
   m_Name: ColourMathBlackBox
   m_TagString: Untagged
@@ -59,6 +61,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82dc5a83f6a218248977ee9f573e122f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  xyYCoordinates: []
 --- !u!114 &5934462334349142021
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81,5 +84,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5d5686d22c0b1e54fbca5a9d341fcf73, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &6725552963898293645
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3662165271418717217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d466f0eb8c7e4948af7b81dd0c72e08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &167648815967291022
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3662165271418717217}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d466f0eb8c7e4948af7b81dd0c72e08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

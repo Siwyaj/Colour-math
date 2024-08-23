@@ -423,6 +423,7 @@ MonoBehaviour:
   baseColor: {x: 0.3, y: 0.6, z: 0.3}
   circlePrefab: {fileID: 1356611976883415514, guid: 513077d26898a0c4295dd205c727fa6a, type: 3}
   stage2Coordinates: []
+  stage3Coordinates: []
 --- !u!114 &1695632525
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -680,10 +681,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3beda93c53617b42a9f8996dd998691, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  stage: 1
   selectedGameobjects: []
   unselectedGameobjects: []
   selected: []
   unselected: []
+  stage2Selected: []
+  stage2UnSelected: []
+  stage2UnselectedGameobjects: []
 --- !u!4 &1808492287
 Transform:
   m_ObjectHideFlags: 0
@@ -704,18 +709,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3662165271418717217, guid: 99fa7b2a03435ff4c86ac7233287a923, type: 3}
   m_PrefabInstance: {fileID: 2025897188}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1932938139
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1932938138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d466f0eb8c7e4948af7b81dd0c72e08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2025897188
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -771,10 +764,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 3662165271418717217, guid: 99fa7b2a03435ff4c86ac7233287a923, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1932938139}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 99fa7b2a03435ff4c86ac7233287a923, type: 3}
 --- !u!1 &2055101159
 GameObject:
