@@ -9,9 +9,15 @@ public class ConvertToP3 : MonoBehaviour
     float[,] XYZTosRGBD65Matrix = { { 3.2404542f, -1.5371385f, -0.4985314f }, 
                                     { -0.9692660f, 1.8760108f, 0.0415560f }, 
                                     { 0.0556434f, -0.2040259f, 1.0572252f } };//bruce
+    /*
     float[,] sRGBToP3D65Matrix = { { 0.8225f, 0.1774f, 0.0000f },
                                    { 0.0332f, 0.9669f, 0.0000f },
                                    { 0.0171f, 0.0724f, 0.9108f } };//endavid
+    */
+    float[,] sRGBToP3D65Matrix = { { 0.8253f, 0.1737f, 0.0010f },
+                                   { 0.0331f, 0.9729f, 0.0004f },
+                                   { 0.0173f, 0.0722f, 0.9079f } };
+
 
 
     public Color Convert(Vector3 xyY)

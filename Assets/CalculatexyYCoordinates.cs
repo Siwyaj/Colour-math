@@ -11,8 +11,16 @@ public class CalculatexyYCoordinates : MonoBehaviour
     int nCircles = 6;
     float startExpansion = 0.0005f;
     float circleExpansion = 0.0013f;
+
+    float[,] sRGBToxyY = { { 0.8225f, 0.1774f, 0.0000f },
+                                   { 0.0332f, 0.9669f, 0.0000f },
+                                   { 0.0171f, 0.0724f, 0.9108f } };//endavid
+
     public List<Vector3> CreateCoordinates(Vector3 centerCoordinate)
     {
+
+
+
         xyYCoordinates = new List<Vector3>();
         directions = new List<int>();
         xyYCoordinates.Add(centerCoordinate);
