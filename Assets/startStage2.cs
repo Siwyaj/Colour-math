@@ -11,6 +11,13 @@ public class startStage2 : MonoBehaviour
     public List<Vector3> stage2Coordinates;
     public List<Vector3> stage3Coordinates;
     int stage = 1;
+    List<Color> colors = new List<Color>()
+    {
+        Color.red,
+        Color.yellow,
+        Color.green,
+        Color.blue
+    };
 
     private void Start()
     {
@@ -83,8 +90,7 @@ public class startStage2 : MonoBehaviour
     void StartStage3()
     {
         stage3Coordinates = blackBox.GetComponent<CalculateEndResult>().CalculateEndPoints(selectedKeeper.GetComponent<SelectedKeeper>().stage2Selected, selectedKeeper.GetComponent<SelectedKeeper>().unselected, baseColor);
-        Debug.Log("Length of stage3Coordinates:" + stage3Coordinates.Count);
-        Debug.Log("placement of first Vector in stage3Coordinates" + stage3Coordinates[0]);
+        /*
         foreach (GameObject leftover in selectedKeeper.GetComponent<SelectedKeeper>().unselectedGameobjects)
         {
             Destroy(leftover);
@@ -92,16 +98,16 @@ public class startStage2 : MonoBehaviour
         foreach (GameObject selected in selectedKeeper.GetComponent<SelectedKeeper>().selectedGameobjects)
         {
             Destroy(selected);
-        }
+        }*/
 
 
-        Debug.Log("Stage3 function ran");
-
+        int iColor = 0;
         foreach (Vector3 coordinate in stage3Coordinates)
         {
             GameObject circle = Instantiate(circlePrefab, (coordinate - baseColor) * 500, Quaternion.identity);
             Color circleColor = blackBox.GetComponent<ConvertToP3>().Convert(coordinate);
-            circle.GetComponent<SpriteRenderer>().color = Color.red;
+            circle.GetComponent<SpriteRenderer>().color = colors[iColor%4];
+            iColor++;
             selectedKeeper.GetComponent<SelectedKeeper>().unselectedGameobjects.Add(circle);
             selectedKeeper.GetComponent<SelectedKeeper>().unselected.Add(coordinate);
 

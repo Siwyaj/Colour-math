@@ -5,10 +5,14 @@ using UnityEngine;
 public class ConvertToP3 : MonoBehaviour
 {
     Color P3Colour;
-
+    /*
     float[,] XYZTosRGBD65Matrix = { { 3.2404542f, -1.5371385f, -0.4985314f }, 
                                     { -0.9692660f, 1.8760108f, 0.0415560f }, 
-                                    { 0.0556434f, -0.2040259f, 1.0572252f } };//bruce
+                                    { 0.0556434f, -0.2040259f, 1.0572252f } };//bruce*/
+    
+    float[,] XYZTosRGBD65Matrix = { { 3.174569687f, -1.43713224527462f, -0.533239073952542f },
+                                    { -0.97855966240002f, 1.85101535691008f, 0.073400600471398f },
+                                    { 0.0717952264090705f, -0.224002081362056f, 1.06120835366593f } };//Emilie
     /*
     float[,] sRGBToP3D65Matrix = { { 0.8225f, 0.1774f, 0.0000f },
                                    { 0.0332f, 0.9669f, 0.0000f },
@@ -16,31 +20,41 @@ public class ConvertToP3 : MonoBehaviour
     */
     float[,] sRGBToP3D65Matrix = { { 0.8253f, 0.1737f, 0.0010f },
                                    { 0.0331f, 0.9729f, 0.0004f },
-                                   { 0.0173f, 0.0722f, 0.9079f } };
+                                   { 0.0173f, 0.0722f, 0.9079f } };//Peter
 
 
-
-    public Color Convert(Vector3 xyY)
+    public Color convertBasesRGBToP3(Vector3 sRGBBase)
     {
-        //Vector3 XYZ = ConvertxyYToXYZ(coordinate, luminance);
-        Vector3 sRGB = ConvertXYZTosRGB(xyY, XYZTosRGBD65Matrix);
-        Vector3 gammaMinus = GammaCorrectionMinus(sRGB);
+        Vector3 gammaMinus = GammaCorrectionMinus(sRGBBase);
         Vector3 P3 = ConvertsRGBToP3(gammaMinus, sRGBToP3D65Matrix);
         Vector3 P3GammaAdded = GammaCorrectionPlus(P3);
         Color P3Colour = new Color(P3GammaAdded[0], P3GammaAdded[1], P3GammaAdded[2]);
 
         return P3Colour;
     }
-
-    Vector3 ConvertxyYToXYZ(Vector2 xy, float Y)
+    public Color Convert(Vector3 xyY)
     {
-        if (xy[1] == 0)
+        Vector3 XYZ = ConvertxyYToXYZ(xyY);
+        Vector3 sRGB = ConvertXYZTosRGB(XYZ, XYZTosRGBD65Matrix);
+        Debug.Log("sRGB(*1000):" + sRGB * 1000);
+        //Vector3 gammaMinus = GammaCorrectionMinus(sRGB);
+        Vector3 P3 = ConvertsRGBToP3(sRGB, sRGBToP3D65Matrix);
+        Vector3 P3GammaAdded = GammaCorrectionPlus(P3);
+        Color P3Colour = new Color(P3GammaAdded[0], P3GammaAdded[1], P3GammaAdded[2]);
+
+        return P3Colour;
+    }
+
+    Vector3 ConvertxyYToXYZ(Vector3 xyY)
+    {
+        
+        if (xyY[1] == 0)
         {
             return new Vector3(0, 0, 0);
         }
-        float X = (xy[0] * Y) / xy[1];
-        float Z = ((1 - xy[0] - xy[1]) * Y) / xy[1];
-        Vector3 XYZ = new Vector3(X, Y, Z);
+        float X = (xyY[0] * xyY[2]) / xyY[1];
+        float Z = ((1 - xyY[0] - xyY[1]) * xyY[2]) / xyY[1];
+        Vector3 XYZ = new Vector3(X, xyY[2], Z);
         return XYZ;
     }
     Vector3 ConvertXYZTosRGB(Vector3 XYZ, float[,] matrix)

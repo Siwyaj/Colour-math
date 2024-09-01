@@ -50,19 +50,17 @@ public class CalculateStage2coordinates : MonoBehaviour
                         direction4.Add((currentCoordinate, true));
                         break;
                     case < 2.4f and > 2.3f:
-                        direction5.Add((currentCoordinate, true));
+                        direction7.Add((currentCoordinate, true));
                         break;
                     case < 1.6f and > 1.5f:
                         direction6.Add((currentCoordinate, true));
                         break;
                     case < 0.8f and > 0.7f:
-                        direction7.Add((currentCoordinate, true));
+                        direction5.Add((currentCoordinate, true));
                         break;
                     default:
                         break;
                 }
-
-            
             }
         }
         foreach (Vector3 currentCoordinate in unSelected)
@@ -89,13 +87,13 @@ public class CalculateStage2coordinates : MonoBehaviour
                         direction4.Add((currentCoordinate, false));
                         break;
                     case < 2.4f and > 2.3f:
-                        direction5.Add((currentCoordinate, false));
+                        direction7.Add((currentCoordinate, false));
                         break;
                     case < 1.6f and > 1.5f:
                         direction6.Add((currentCoordinate, false));
                         break;
                     case < 0.8f and > 0.7f:
-                        direction7.Add((currentCoordinate, false));
+                        direction5.Add((currentCoordinate, false));
                         break;
                     default:
                         break;
@@ -104,8 +102,7 @@ public class CalculateStage2coordinates : MonoBehaviour
         }
 
 
-        Debug.Log("before calculations");
-        Debug.Log(direction0);
+        
        
         stage2Coordinates.AddRange(calculateStage2CoordinatesForDirection(direction0, baseColor));
         stage2Coordinates.AddRange(calculateStage2CoordinatesForDirection(direction1, baseColor));
@@ -115,8 +112,8 @@ public class CalculateStage2coordinates : MonoBehaviour
         stage2Coordinates.AddRange(calculateStage2CoordinatesForDirection(direction5, baseColor));
         stage2Coordinates.AddRange(calculateStage2CoordinatesForDirection(direction6, baseColor));
         stage2Coordinates.AddRange(calculateStage2CoordinatesForDirection(direction7, baseColor));
-        
 
+        Debug.Log("CalculateStage2Coordinates ran without problems");
         return stage2Coordinates;
     }
 

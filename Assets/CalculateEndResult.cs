@@ -16,7 +16,7 @@ public class CalculateEndResult : MonoBehaviour
     List<(Vector3, bool)> direction6 = new List<(Vector3, bool)>();//TRUE=Selected/different, False=not-selected/same
     List<(Vector3, bool)> direction7 = new List<(Vector3, bool)>();//TRUE=Selected/different, False=not-selected/same
 
-    public List<Vector3> CalculateEndPoints(List<Vector3> selectedStage2,List<Vector3> notSelectedStage2, Vector3 basePoint)
+    public List<Vector3> CalculateEndPoints(List<Vector3> selectedStage2,List<Vector3> notSelectedStage2, Vector3 baseColor)
     {
         Debug.Log("selectedStage2 length" + selectedStage2.Count);
         Debug.Log(notSelectedStage2[0]);
@@ -26,96 +26,91 @@ public class CalculateEndResult : MonoBehaviour
         foreach (Vector3 currentCoordinate in selectedStage2)
         {
             //Vector3 currentCoordinate = selectedCircle.GetComponent<data>().xyYCoordinate;
-            if (currentCoordinate != basePoint)
+            if (currentCoordinate != baseColor)
             {
-                float angle = Mathf.Atan2(basePoint[1] - currentCoordinate[1], basePoint[0] - currentCoordinate[0]);
+                float angle = Mathf.Atan2(currentCoordinate[1] - baseColor[1], currentCoordinate[0] - baseColor[0]);
                 switch (angle)
                 {
-                    case > 3.1f and < 3.2f:
+                    case > -0.1f and < 0.1f:
                         direction0.Add((currentCoordinate, true));
                         break;
-                    case > -2.4f and < -2.3f:
+                    case < 0.8f and > 0.7f:
                         direction1.Add((currentCoordinate, true));
                         break;
-                    case > -1.6f and < -1.5f:
+                    case < 1.6f and > 1.5f:
                         direction2.Add((currentCoordinate, true));
                         break;
-                    case > -0.8f and < -0.7f:
+                    case < 2.4f and > 2.3f:
                         direction3.Add((currentCoordinate, true));
                         break;
-                    case > -0.1f and < 0.1f:
+                    case > 3.1f and < 3.2f:
                         direction4.Add((currentCoordinate, true));
                         break;
-                    case < 2.4f and > 2.3f:
-                        direction5.Add((currentCoordinate, true));
+                    case > -0.8f and < -0.7f:
+                        direction7.Add((currentCoordinate, true));
                         break;
-                    case < 1.6f and > 1.5f:
+                    case > -1.6f and < -1.5f:
                         direction6.Add((currentCoordinate, true));
                         break;
-                    case < 0.8f and > 0.7f:
-                        direction7.Add((currentCoordinate, true));
+                    case > -2.4f and < -2.3f:
+                        direction5.Add((currentCoordinate, true));
                         break;
                     default:
                         break;
                 }
-
-
             }
         }
         foreach (Vector3 currentCoordinate in notSelectedStage2)
         {
             //Vector3 currentCoordinate = unSelectedCircle.GetComponent<data>().xyYCoordinate;
-            if (currentCoordinate != basePoint)
+            if (currentCoordinate != baseColor)
             {
-                float angle = Mathf.Atan2(basePoint[1] - currentCoordinate[1], basePoint[0] - currentCoordinate[0]);
+                float angle = Mathf.Atan2(currentCoordinate[1] - baseColor[1], currentCoordinate[0] - baseColor[0]);
                 switch (angle)
                 {
-                    case > 3.1f and < 3.2f:
+                    case > -0.1f and < 0.1f:
                         direction0.Add((currentCoordinate, false));
                         break;
-                    case > -2.4f and < -2.3f:
+                    case < 0.8f and > 0.7f:
                         direction1.Add((currentCoordinate, false));
                         break;
-                    case > -1.6f and < -1.5f:
+                    case < 1.6f and > 1.5f:
                         direction2.Add((currentCoordinate, false));
                         break;
-                    case > -0.8f and < -0.7f:
+                    case < 2.4f and > 2.3f:
                         direction3.Add((currentCoordinate, false));
                         break;
-                    case > -0.1f and < 0.1f:
+                    case > 3.1f and < 3.2f:
                         direction4.Add((currentCoordinate, false));
                         break;
-                    case < 2.4f and > 2.3f:
-                        direction5.Add((currentCoordinate, false));
-                        break;
-                    case < 1.6f and > 1.5f:
-                        direction6.Add((currentCoordinate, false));
-                        break;
-                    case < 0.8f and > 0.7f:
+                    case > -0.8f and < -0.7f:
                         direction7.Add((currentCoordinate, false));
                         break;
+                    case > -1.6f and < -1.5f:
+                        direction6.Add((currentCoordinate, false));
+                        break;
+                    case > -2.4f and < -2.3f:
+                        direction5.Add((currentCoordinate, false));
+                        break;
                     default:
-                        Debug.Log("Did not fit in any direction");
                         break;
                 }
             }
         }
 
-        Debug.Log(direction0.Count);
-        Debug.Log("Placement of direction 0.1:" + direction0[0]);
-        Debug.Log("Placement of direction 0.2:" + direction0[1]);
-        Debug.Log("Placement of direction 0.3:" + direction0[2]);
-        Debug.Log("Placement of direction 0.4:" + direction0[3]);
+        Debug.Log(direction5.Count);
 
-        finalMedianCoordinates.Add(calculateFinalPointForDirection(direction0, basePoint));/*
-        finalMedianCoordinates.Add(calculateFinalPointForDirection(direction1, basePoint));
-        finalMedianCoordinates.Add(calculateFinalPointForDirection(direction2, basePoint));
-        finalMedianCoordinates.Add(calculateFinalPointForDirection(direction3, basePoint));
-        finalMedianCoordinates.Add(calculateFinalPointForDirection(direction4, basePoint));
-        finalMedianCoordinates.Add(calculateFinalPointForDirection(direction5, basePoint));
-        finalMedianCoordinates.Add(calculateFinalPointForDirection(direction6, basePoint));
-        finalMedianCoordinates.Add(calculateFinalPointForDirection(direction7, basePoint)); */
-        Debug.Log("length of finalMedianCoordinates:" + finalMedianCoordinates.Count);
+        
+        finalMedianCoordinates.Add(calculateFinalPointForDirection(direction0, baseColor));
+        finalMedianCoordinates.Add(calculateFinalPointForDirection(direction1, baseColor));
+        finalMedianCoordinates.Add(calculateFinalPointForDirection(direction2, baseColor));
+        finalMedianCoordinates.Add(calculateFinalPointForDirection(direction3, baseColor));
+        finalMedianCoordinates.Add(calculateFinalPointForDirection(direction4, baseColor));
+        finalMedianCoordinates.Add(calculateFinalPointForDirection(direction5, baseColor));
+        finalMedianCoordinates.Add(calculateFinalPointForDirection(direction6, baseColor));
+        finalMedianCoordinates.Add(calculateFinalPointForDirection(direction7, baseColor)); 
+
+
 
         return finalMedianCoordinates;
     }
