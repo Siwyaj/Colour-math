@@ -18,7 +18,7 @@ public class SpawnPrefab : MonoBehaviour
 
         coordinates = blackBox.GetComponent<CalculatexyYCoordinates>().CreateCoordinates(baseColor);
         Color BaseConvertedNew = blackBox.GetComponent<ConvertToP3>().convertBasesRGBToP3(baseColor);
-        background.GetComponent<SpriteRenderer>().color = BaseConvertedNew;
+        background.GetComponent<SpriteRenderer>().color = Color.black;
         Color BaseConvertedfull = blackBox.GetComponent<ConvertToP3>().Convert(coordinates[0]);
         Debug.Log("Difference x" + Mathf.Abs(BaseConvertedfull[0] - BaseConvertedNew[0]));
         Debug.Log("Difference y" + Mathf.Abs(BaseConvertedfull[1] - BaseConvertedNew[1]));

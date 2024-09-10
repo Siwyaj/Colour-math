@@ -26,12 +26,18 @@ public class CalculateStage2coordinates : MonoBehaviour
         Debug.Log("Colors slected and unselected: " + unSelected.Count+", should euqual 98");
 
 
+        Debug.Log("Base color: " + baseColor + " third vector " + unSelected[2]);
+
         foreach (Vector3 currentCoordinate in selected)
         {
             //Vector3 currentCoordinate = selectedCircle.GetComponent<data>().xyYCoordinate;
             if (currentCoordinate != baseColor)
             {
-                float angle = Mathf.Atan2(baseColor[1] - currentCoordinate[1], baseColor[0] - currentCoordinate[0]);
+                Vector3 directionVector = currentCoordinate - baseColor;
+
+                Debug.Log("directionVector: " + directionVector);
+                float angle = Mathf.Atan2(directionVector[1], directionVector[0]);
+                Debug.Log("Angle: " + angle);
                 switch (angle)
                 {
                     case >3.1f and <3.2f:
@@ -59,6 +65,7 @@ public class CalculateStage2coordinates : MonoBehaviour
                         direction5.Add((currentCoordinate, true));
                         break;
                     default:
+                        Debug.Log("No Angle fit");
                         break;
                 }
             }
@@ -68,7 +75,11 @@ public class CalculateStage2coordinates : MonoBehaviour
             //Vector3 currentCoordinate = unSelectedCircle.GetComponent<data>().xyYCoordinate;
             if (currentCoordinate != baseColor)
             {
-                float angle = Mathf.Atan2(baseColor[1] - currentCoordinate[1], baseColor[0] - currentCoordinate[0]);
+                Vector3 directionVector = currentCoordinate - baseColor;
+
+                Debug.Log("directionVector: " + directionVector);
+                float angle = Mathf.Atan2(directionVector[1], directionVector[0]);
+                Debug.Log("Angle: " + angle);
                 switch (angle)
                 {
                     case > 3.1f and < 3.2f:
@@ -96,6 +107,7 @@ public class CalculateStage2coordinates : MonoBehaviour
                         direction5.Add((currentCoordinate, false));
                         break;
                     default:
+                        Debug.Log("No Angle fit");
                         break;
                 }
             }

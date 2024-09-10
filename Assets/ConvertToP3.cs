@@ -36,7 +36,7 @@ public class ConvertToP3 : MonoBehaviour
     {
         Vector3 XYZ = ConvertxyYToXYZ(xyY);
         Vector3 sRGB = ConvertXYZTosRGB(XYZ, XYZTosRGBD65Matrix);
-        Debug.Log("sRGB(*1000):" + sRGB * 1000);
+        //Debug.Log("sRGB(*1000):" + sRGB * 1000);
         //Vector3 gammaMinus = GammaCorrectionMinus(sRGB);
         Vector3 P3 = ConvertsRGBToP3(sRGB, sRGBToP3D65Matrix);
         Vector3 P3GammaAdded = GammaCorrectionPlus(P3);
