@@ -34,10 +34,7 @@ public class CalculateStage2coordinates : MonoBehaviour
             if (currentCoordinate != baseColor)
             {
                 Vector3 directionVector = currentCoordinate - baseColor;
-
-                Debug.Log("directionVector: " + directionVector);
                 float angle = Mathf.Atan2(directionVector[1], directionVector[0]);
-                Debug.Log("Angle: " + angle);
                 switch (angle)
                 {
                     case >3.1f and <3.2f:
@@ -76,10 +73,7 @@ public class CalculateStage2coordinates : MonoBehaviour
             if (currentCoordinate != baseColor)
             {
                 Vector3 directionVector = currentCoordinate - baseColor;
-
-                Debug.Log("directionVector: " + directionVector);
                 float angle = Mathf.Atan2(directionVector[1], directionVector[0]);
-                Debug.Log("Angle: " + angle);
                 switch (angle)
                 {
                     case > 3.1f and < 3.2f:
