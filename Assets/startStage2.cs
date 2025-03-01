@@ -12,6 +12,9 @@ public class startStage2 : MonoBehaviour
     public List<Vector3> stage2Coordinates;
     public List<Vector3> stage3Coordinates;
     int stage = 1;
+
+    Vector3 baseColorxyY;
+
     List<Color> colors = new List<Color>()
     {
         Color.red,
@@ -22,7 +25,7 @@ public class startStage2 : MonoBehaviour
 
     private void Start()
     {
-        coordinates = blackBox.GetComponent<CalculatexyYCoordinates>().CreateCoordinates(baseColor);
+        (coordinates, baseColorxyY) = blackBox.GetComponent<CalculatexyYCoordinates>().CreateCoordinates(baseColor);
         stage = 1;
     }
 
@@ -46,7 +49,7 @@ public class startStage2 : MonoBehaviour
         //!!!!LOG SELECTED AND UNSELECTED
 
 
-        stage2Coordinates = blackBox.GetComponent<CalculateStage2coordinates>().Stage2Coordinates(selectedKeeper.GetComponent<SelectedKeeper>().selected, selectedKeeper.GetComponent<SelectedKeeper>().unselected, coordinates[0]);
+        stage2Coordinates = blackBox.GetComponent<CalculateStage2coordinates>().Stage2Coordinates(selectedKeeper.GetComponent<SelectedKeeper>().selected, selectedKeeper.GetComponent<SelectedKeeper>().unselected, baseColorxyY);
 
         selectedKeeper.GetComponent<SelectedKeeper>().selected.Clear();
         selectedKeeper.GetComponent<SelectedKeeper>().unselected.Clear();

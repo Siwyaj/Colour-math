@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class CalculatexyYCoordinates : MonoBehaviour
@@ -8,9 +10,10 @@ public class CalculatexyYCoordinates : MonoBehaviour
     public List<Vector3> xyYCoordinates;
     List<int> directions;
     int nDirections = 8;
-    int nCircles = 6;
+    int nCircles = 9;
     float startExpansion = 0.0005f;
     float circleExpansion = 0.0013f;
+    float polyPower = 1.1f;
 
     public Vector3 XYZCoordinate;
     public Vector3 gammeminus;
@@ -24,9 +27,9 @@ public class CalculatexyYCoordinates : MonoBehaviour
     float[,] sRGBToXYZ = { { 0.4177f, 0.3468f, 0.1859f },
                                    { 0.2201f, 0.7185f, 0.0609f },
                                    { 0.0182f, 0.1282f, 0.9426f } };//Emilie
-    public List<Vector3> CreateCoordinates(Vector3 centerCoordinatesRGB)
+    public (List<Vector3>, Vector3) CreateCoordinates(Vector3 centerCoordinatesRGB)
     {
-        
+
         gammeminus = GammaMinus(centerCoordinatesRGB);
         //Debug.Log("Gamma reduced(*10)"+gammeminus*10);
         XYZCoordinate = ConvertsRGBToXYZ(gammeminus);
@@ -41,15 +44,24 @@ public class CalculatexyYCoordinates : MonoBehaviour
         {
             for (int circle = 0; circle < nCircles; circle++)
             {
-                float x = Mathf.Cos((2 * Mathf.PI / nDirections) * direction) * (circle * circleExpansion + startExpansion) + centerCoordinatexyY[0];
-                float y = Mathf.Sin((2 * Mathf.PI / nDirections) * direction) * (circle * circleExpansion + startExpansion) + centerCoordinatexyY[1];
+                float expansion = MathF.Pow(circle,polyPower) * circleExpansion + startExpansion;
+                float x = Mathf.Cos((2 * Mathf.PI / nDirections) * direction) *  expansion + centerCoordinatexyY[0];//direction*distance+center
+                float y = Mathf.Sin((2 * Mathf.PI / nDirections) * direction) * expansion + centerCoordinatexyY[1];
+
                 Vector3 currentCoordinate = new Vector3(x, y, centerCoordinatexyY[2]);
 
                 xyYCoordinates.Add(currentCoordinate);
             }
         }
         xyYCoordinates.AddRange(xyYCoordinates);
-        return xyYCoordinates;
+        UnityEngine.Random.seed = 210999;
+        //xyYCoordinates = xyYCoordinates.OrderBy(x => Random.value).ToList();
+        for (int i = xyYCoordinates.Count - 1; i > 0; i--)
+        {
+            int j = UnityEngine.Random.Range(0, i + 1);
+            (xyYCoordinates[i], xyYCoordinates[j]) = (xyYCoordinates[j], xyYCoordinates[i]);
+        }
+        return (xyYCoordinates, centerCoordinatexyY);
     }
 
     Vector3 GammaMinus(Vector3 sRGB)
@@ -63,8 +75,8 @@ public class CalculatexyYCoordinates : MonoBehaviour
             }
             else
             {
-                Debug.Log("else case ran"+ Mathf.Pow((sRGB[i] + 0.055f) / 1.055f, 2.4f));
-                gammaMinus[i]=Mathf.Pow((sRGB[i]+0.055f)/1.055f, 2.4f);
+                //Debug.Log("else case ran"+ Mathf.Pow((sRGB[i] + 0.055f) / 1.055f, 2.4f));
+                gammaMinus[i] = Mathf.Pow((sRGB[i] + 0.055f) / 1.055f, 2.4f);
 
             }
         }
@@ -72,11 +84,11 @@ public class CalculatexyYCoordinates : MonoBehaviour
     }
     Vector3 ConvertsRGBToXYZ(Vector3 sRGB)
     {
-        
+
         float X = sRGB[0] * sRGBToXYZ[0, 0] + sRGB[1] * sRGBToXYZ[0, 1] + sRGB[2] * sRGBToXYZ[0, 2];
         float Y = sRGB[0] * sRGBToXYZ[1, 0] + sRGB[1] * sRGBToXYZ[1, 1] + sRGB[2] * sRGBToXYZ[1, 2];
         float Z = sRGB[0] * sRGBToXYZ[2, 0] + sRGB[1] * sRGBToXYZ[2, 1] + sRGB[2] * sRGBToXYZ[2, 2];
-        Vector3 XYZ = new Vector3(X,Y,Z);
+        Vector3 XYZ = new Vector3(X, Y, Z);
         return XYZ;
     }
 
@@ -86,6 +98,6 @@ public class CalculatexyYCoordinates : MonoBehaviour
         float y = XYZCoordinate[1] / (XYZCoordinate[0] + XYZCoordinate[1] + XYZCoordinate[2]);
         float Y = XYZCoordinate[1];
 
-        return new Vector3(x,y,Y);
+        return new Vector3(x, y, Y);
     }
 }
